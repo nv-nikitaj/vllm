@@ -120,7 +120,7 @@ __global__ void __launch_bounds__(512, VLLM_BLOCKS_PER_SM(512))
         } else {
           int64_t outOffset =
               rowIdx * (numCols / CVT_FP4_ELTS_PER_THREAD) + colIdx;
-          out[outOffset] = out_val;
+          reinterpret_cast<fp4_packed_t*>(out)[outOffset] = out_val;
         }
       }
     }
